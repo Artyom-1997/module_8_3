@@ -1,0 +1,34 @@
+﻿def personal_sum(numbers):
+    result = 0
+    incorrect_data = 0
+
+    for number in numbers:
+        try:
+            result += number
+        except TypeError:
+            incorrect_data += 1
+
+    return result, incorrect_data
+
+
+def calculate_average(numbers):
+    try:
+        # Проверяем, является ли numbers списком или итерируемым объектом
+        if not hasattr(numbers, '__iter__'):
+            print('В numbers записан некорректный тип данных')
+            return None
+
+        total_sum, incorrect_data = personal_sum(numbers)
+
+        # Подсчитываем количество корректных данных
+        valid_count = len(numbers) - incorrect_data
+
+        # Вычисляем среднее арифметическое
+        average = total_sum / valid_count if valid_count > 0 else 0
+        return average
+
+    except ZeroDivisionError:
+        return 0
+    except TypeError:
+        print('В numbers записан некорректный тип данных')
+        return None
